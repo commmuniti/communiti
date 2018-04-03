@@ -1,0 +1,40 @@
+# to see databases
+show dbs
+
+# to use some database
+use dbname
+
+#insert
+db.movies.insertOne({"title":"iron man", "year": 2007, "imdb":9.0})
+
+#See the document
+1. db.movies.find()
+2. db.movies.find().pretty() // much better
+3. db.movies.find({}).pretty() // same as above two
+4. db.movies.find({"title":"iron man"}).pretty()
+
+#javascript methods
+var c = db.movies.find()
+c is a kind of iterator which contains a list of documents
+c.next() // prints the document
+c.hasNext() // tells us whether we reached the end or not
+
+# insert multiple instances
+db.movies.insertMany(
+	[
+		{
+		"imdb" : "sda",
+		"title" : "star trek",
+		"year" : "1997"
+		},
+		{
+		"imdb" : "sdknskd",
+		"title" : "iron man",
+		"year" : "2008"
+		}
+	],
+	{
+		"ordered": true/false #data entry in db stops after duplicate found / data entry of unique id things 
+	}
+
+);

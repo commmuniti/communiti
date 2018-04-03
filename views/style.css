@@ -1,0 +1,21 @@
+.links{
+    width: 98.2%;
+    height: 20px;
+    text-align: center;
+    color: white;
+    background-color: blue;
+    padding: 10px;
+}
+
+.signup span{
+    width: 200px; 
+    float:left;
+    padding-top: 5px;
+}
+
+.login span{
+    width: 200px; 
+    float:left;
+    padding-top: 5px;
+}
+
