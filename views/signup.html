@@ -31,7 +31,20 @@
       
       <label for="inputPhone" class="sr-only">Phone number</label>
       <input type="phone" name="phone" id="inputPhone" class="form-control" placeholder="Phone Number" required autofocus>
-      
+
+      <label for="inputHometown" class="sr-only">Phone number</label>
+      <input type="text" name="hometown" id="inputHometown" class="form-control" placeholder="Hometown" required autofocus>
+
+      <label for="dob" class="sr-only">Date of birth</label>
+      <input type="text" name="dob" id="inputDob" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date Of Birth" required autofocus>
+
+      <select class="form-control" required autofocus name="gender">
+          <option value="SelectGender" disabled selected>Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+      </select> 
+
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
 

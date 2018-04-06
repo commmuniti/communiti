@@ -30,7 +30,6 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
     app.post('/login.html', function (req, res) {
         if (!req.body) return res.send("Error 404");
         var query={"email":req.body.email, "password": req.body.password};
-        //console.log(query);
         var email, password;
         db.collection("users").findOne(query, function(err, info){
             assert.equal(null, err);
@@ -40,7 +39,8 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
             }
             email = info.email;
             password = info.password;
-            if(req.body.email == email && req.body.password == password)
+            if(req.body.email == email && req.body.password == password){
+                // Here is the problem: we don't want to render, we want to redirect it to home.html with tghe following data
                 res.render('home.html',
                     {
                         "name" : info.name, 
@@ -48,17 +48,25 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
                         "dob": info.dob
                     }
                 );
+            }
             else{
                 res.send("Incorrect email or password");
             }
-            console.log("email : " + req.body.email +  " Password : " + req.body.password);
         });
     });
     
     // Process Sign Up form data
     app.post('/signup.html', function (req, res) {
         if (!req.body) return res.send("Error 404");
-        var query={"email":req.body.email, "password": req.body.password, "phone": req.body.phone, "name": req.body.name};
+        var query={
+            "email":req.body.email, 
+            "password": req.body.password, 
+            "phone": req.body.phone, 
+            "name": req.body.name,
+            "gender" : req.body.gender,
+            "dob" : req.body.dob,
+            "hometown": req.body.hometown
+        };
         db.collection("users").insertOne(query, function(err, info){
             assert.equal(null, err);
             res.render('index.html');
