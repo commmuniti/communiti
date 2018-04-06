@@ -6,45 +6,56 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       router = express.Router();
 
+
+// For rendering templates
 app.engine('html', engines.nunjucks);
 app.set('view engine', 'html');
+
+// For using views folder globally and freely
 app.use(express.static('views'));
+
+// For reading data sent by html in json format
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// MongoDb connection 
 MongoClient.connect('mongodb://localhost:27017', function(err, client) {
+    // Error Generator
+    assert.equal(null, err);
+    console.log("Successfully connected to MongoDB.");
 
-assert.equal(null, err);
-console.log("Successfully connected to MongoDB.");
-var db = client.db('communiti');
+    // Set your database
+    var db = client.db('communiti');
 
-app.post('/login.html', function (req, res) {
-    if (!req.body) return res.send("Error 404");
-    var query={"email":req.body.email, "password": req.body.password};
-    //console.log(query);
-    var email, password;
-    db.collection("users").findOne(query, function(err, info){
-        assert.equal(null, err);
-        if(info == null){
-            res.send("User dosen't exists in database");
-            return;
-        }
-        email = info.email;
-        password = info.password;
-        if(req.body.email == email && req.body.password == password)
-            res.render('home.html',
-				{
-					"name" : info.name, 
-					"hometown": info.hometown, 
-					"dob": info.dob
-				}
-            );
-        else{
-            res.send("Incorrect email or password");
-        }
-        console.log("email : " + req.body.email +  " Password : " + req.body.password);
+    // Process Login form data
+    app.post('/login.html', function (req, res) {
+        if (!req.body) return res.send("Error 404");
+        var query={"email":req.body.email, "password": req.body.password};
+        //console.log(query);
+        var email, password;
+        db.collection("users").findOne(query, function(err, info){
+            assert.equal(null, err);
+            if(info == null){
+                res.send("User dosen't exists in database");
+                return;
+            }
+            email = info.email;
+            password = info.password;
+            if(req.body.email == email && req.body.password == password)
+                res.render('home.html',
+                    {
+                        "name" : info.name, 
+                        "hometown": info.hometown, 
+                        "dob": info.dob
+                    }
+                );
+            else{
+                res.send("Incorrect email or password");
+            }
+            console.log("email : " + req.body.email +  " Password : " + req.body.password);
+        });
     });
-});
     
+    // Process Sign Up form data
     app.post('/signup.html', function (req, res) {
         if (!req.body) return res.send("Error 404");
         var query={"email":req.body.email, "password": req.body.password, "phone": req.body.phone, "name": req.body.name};
@@ -53,26 +64,26 @@ app.post('/login.html', function (req, res) {
             res.render('index.html');
         });
     });
-    
-    app.get('/', function(req, res){
-        res.render('index.html');
-    });
-	app.get('/home.html', function(req, res){
-        if(!req.session.user){
-            return res.send("404 error");
-        }
-        res.render('home.html');
-    });
 
+    // Process ne question form 
+    // #Under development
     app.post('/home.html', function (req, res) {
         if (!req.body) return res.send("Error 404");
         console.log(req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish + " " + req.body.ques);
         
     });
+
+    // Render front page
+    app.get('/', function(req, res){
+        res.render('index.html');
+    });
+    
+    // Error for unknown page
     app.use(function(req, res){
         res.sendStatus(404);
     });
-    
+
+    // Let the server listen your requests
     var server = app.listen(3000, function() {
         var port = server.address().port;
         console.log('Express server listening on port %s.', port);
