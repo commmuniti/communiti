@@ -30,9 +30,14 @@ app.post('/login.html', function (req, res) {
         }
         email = info.email;
         password = info.password;
-        console.log(email + " " + password);
         if(req.body.email == email && req.body.password == password)
-            res.send('welcome, ' + req.body.email);
+            res.render('home.html',
+				{
+					"name" : info.name, 
+					"hometown": info.hometown, 
+					"dob": info.dob
+				}
+            );
         else{
             res.send("Incorrect email or password");
         }
@@ -52,7 +57,18 @@ app.post('/login.html', function (req, res) {
     app.get('/', function(req, res){
         res.render('index.html');
     });
-    
+	app.get('/home.html', function(req, res){
+        if(!req.session.user){
+            return res.send("404 error");
+        }
+        res.render('home.html');
+    });
+
+    app.post('/home.html', function (req, res) {
+        if (!req.body) return res.send("Error 404");
+        console.log(req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish + " " + req.body.ques);
+        
+    });
     app.use(function(req, res){
         res.sendStatus(404);
     });
