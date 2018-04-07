@@ -27,14 +27,14 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
     var db = client.db('communiti');
 
     // Process Login form data
-    app.post('/login.html', function (req, res) {
+    app.post('/home.html', function (req, res) {
         if (!req.body) return res.send("Error 404");
         var query={"email":req.body.email, "password": req.body.password};
         var email, password;
         db.collection("users").findOne(query, function(err, info){
             assert.equal(null, err);
             if(info == null){
-                res.send("User dosen't exists in database");
+                res.redirect('error.html');
                 return;
             }
             email = info.email;
@@ -50,7 +50,7 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
                 );
             }
             else{
-                res.send("Incorrect email or password");
+                res.redirect('error.html');
             }
         });
     });
@@ -73,13 +73,13 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
         });
     });
 
-    // Process ne question form 
-    // #Under development
-    app.post('/home.html', function (req, res) {
-        if (!req.body) return res.send("Error 404");
-        console.log(req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish + " " + req.body.ques);
+    // // Process ne question form 
+    // // #Under development
+    // app.post('/home.html', function (req, res) {
+    //     if (!req.body) return res.send("Error 404");
+    //     console.log(req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish + " " + req.body.ques);
         
-    });
+    // });
 
     // Render front page
     app.get('/', function(req, res){
