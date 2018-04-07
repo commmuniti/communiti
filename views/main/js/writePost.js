@@ -18,4 +18,7 @@ $(document).ready(function(){
         });
             alert("Question Sucessfully Submitted");
     });
+    $('#addComment').on('click', function (event) {
+        $(this).next('.myCommentDiv').toggle('swing');
+    });
 });

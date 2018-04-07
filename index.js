@@ -50,7 +50,7 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
                 );
             }
             else{
-                res.redirect('error.html');
+                res.send('Incorrect email or password');
             }
         });
     });
