@@ -69,7 +69,7 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
         };
         db.collection("users").insertOne(query, function(err, info){
             assert.equal(null, err);
-            res.render('index.html');
+            res.redirect('index.html');
         });
     });
 
