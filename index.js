@@ -77,7 +77,8 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
     // // #Under development
     app.post('/publishPost', function (req, res) {
         if (!req.body) return res.send("Error 404");
-        console.log(req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish + " " + req.body.ques);
+        console.log(req.body);
+        //console.log(req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish + " " + req.body.ques + " " + req.body.tags);
         
     });
 

@@ -10,7 +10,8 @@ $(document).ready(function(){
     $("#sendQues").click(function(){
         $.post("/publishPost",
         {
-            ques: $("#ques").text(),
+            ques: $("#ques").val(),
+            tags:$("#tags").val(),
             name: $("#name").text(),
             upvotes: 0,
             downvotes: 0,
