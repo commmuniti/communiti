@@ -34,7 +34,7 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
         db.collection("users").findOne(query, function(err, info){
             assert.equal(null, err);
             if(info == null){
-                res.redirect('error.html');
+                res.send('Incorrect email or password');
                 return;
             }
             email = info.email;
