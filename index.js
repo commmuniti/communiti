@@ -39,13 +39,20 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
             }
             email = info.email;
             password = info.password;
+            var questions = [];
+            db.collection("questions").find().toArray(function(err, result){
+                for (var i = 0 ; i < result.length ; i++)
+                    questions.push(result[i]);
+            });
             if(req.body.email == email && req.body.password == password){
                 // Here is the problem: we don't want to render, we want to redirect it to home.html with tghe following data
                 res.render('home.html',
                     {
                         "name" : info.name, 
                         "hometown": info.hometown, 
-                        "dob": info.dob
+                        "dob": info.dob,
+                        "interests" : info.interests,
+                        "questions" : questions 
                     }
                 );
             }

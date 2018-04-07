@@ -8,6 +8,10 @@ var output = d.getFullYear() + '/' +
 // Post the question -> sent to node js for storing question in database.
 $(document).ready(function(){
     $("#sendQues").click(function(){
+        if($('#ques').val() == ""){
+            alert("Add your question buddy!");
+            return;
+        }
         $.post("/publishPost",
         {
             ques: $("#ques").val(),
@@ -19,7 +23,7 @@ $(document).ready(function(){
         });
             alert("Question Sucessfully Submitted");
     });
-    $('#addComment').on('click', function (event) {
+    $('.addComment').on('click', function (event) {
         $(this).next('.myCommentDiv').toggle('swing');
     });
 });

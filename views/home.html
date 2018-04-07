@@ -14,7 +14,12 @@
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
-  html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+    html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+    .comment{
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      padding-left: 5px;
+    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="main/js/writePost.js"></script>
@@ -114,17 +119,9 @@
         <div class="w3-container">
           <p>Interests</p>
           <p>
-            <span class="w3-tag w3-small w3-theme-d5">News</span>
-            <span class="w3-tag w3-small w3-theme-d4">W3Schools</span>
-            <span class="w3-tag w3-small w3-theme-d3">Labels</span>
-            <span class="w3-tag w3-small w3-theme-d2">Games</span>
-            <span class="w3-tag w3-small w3-theme-d1">Friends</span>
-            <span class="w3-tag w3-small w3-theme">Games</span>
-            <span class="w3-tag w3-small w3-theme-l1">Friends</span>
-            <span class="w3-tag w3-small w3-theme-l2">Food</span>
-            <span class="w3-tag w3-small w3-theme-l3">Design</span>
-            <span class="w3-tag w3-small w3-theme-l4">Art</span>
-            <span class="w3-tag w3-small w3-theme-l5">Photos</span>
+            {% for interest in interests %}
+              <span class="w3-tag w3-small w3-theme-d2">{{ interest }}</span>
+            {% endfor %}
           </p>
         </div>
       </div>
@@ -150,7 +147,7 @@
           <div class="w3-card w3-round w3-white">
             <div class="w3-container w3-padding">
               <h6 class="w3-opacity">Ask Your Question Here!</h6>
-              <textarea placeholder="What's on your mind?" id="ques" style="width: 100%; resize: none;" class="form-control w3-border w3-padding"></textarea>
+              <textarea placeholder="What's on your mind?" id="ques" style="width: 100%; resize: none;" class="form-control w3-border w3-padding" required autofocus></textarea>
               <h6 class="w3-opacity">Add Tags: </h6>
               <input type="text" id="tags" style="width: 100%; resize: none;" class="form-control w3-border w3-padding">
               <br>
@@ -160,24 +157,36 @@
         </div>
       </div>
       
+
+      {% for ques in questions %}
       <div id="myForm" class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <img src="images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">{{dob}}</span>
-        <h4>{{name}}</h4><br>
+        <span class="w3-right w3-opacity">{{ques.dateOfPublish}}</span>
+        <h4>{{ques.user}}</h4><br>
         <hr class="w3-clear">
-        <p>How to change the color of caret in java?</p>
-        
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Upvote </button> 
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>  Downvote</button> 
-        <button type="button" id="addComment" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+        <p>{{ ques.ques }}</p>
+        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Upvote {{ques.upvote}}</button> 
+        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>  Downvote {{ques.downvote}} </button> 
+        <button type="button" class="addComment w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
         <div class="myCommentDiv" style="display: none;">
           <div class="comment_form">
               <input type="text" class="form-control" style="width: 100%; margin-bottom: 10px;" placeholder="Add a comment.....">
               <button id="post" class="form-control btn btn-primary btn-md" style="width: 10%; margin-bottom: 10px;">Post</button>  
           </div>
+          <div class="container-fluid">
+            {% for comment in ques.comments %}
+              <p class="comment" style="float: left; width: 85%;">
+                <b>{{comment.user}}:</b> {{comment.content}} 
+              </p> 
+              <div class= "container-fluid" style="float: right;">  
+                <a href="#"><i class="fa fa-thumbs-up"></i><span>{{comment.likes}}0</span></a> &nbsp;
+                <a href="#"><i class="fa fa-thumbs-down"></i><span>{{comment.dislikes}}0</span></a>
+              </div><br>
+            {% endfor %}
+          </div>    
         </div>
       </div>
-      
+      {% endfor %}
     <!-- End Middle Column -->
     </div>
     
