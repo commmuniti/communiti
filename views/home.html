@@ -12,29 +12,7 @@
   html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script>
-    // Fetching Date
-    var d = new Date();
-    var month = d.getMonth()+1;
-    var day = d.getDate();
-    var output = d.getFullYear() + '/' +
-        (month<10 ? '0' : '') + month + '/' +
-        (day<10 ? '0' : '') + day;
-    // Post the question -> sent to node js for storing question in database.
-    $(document).ready(function(){
-        $("#sendQues").click(function(){
-            $.post("home.html",
-            {
-              ques: $("#ques").text(),
-              name: $("#name").text(),
-              upvotes: 0,
-              downvotes: 0,
-              dateOfPublish: output
-            });
-			  alert("Question Sucessfully Submitted");
-        });
-    });
-  </script>
+  <script src="main/js/writePost.js"></script>
 </head>
 <body class="w3-theme-l5">
 
@@ -55,7 +33,11 @@
     </div>
   </div>
   <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
+<<<<<<< HEAD
     <img src="images/avatar2.png" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
+=======
+    <img src="/images/avatar2.png" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
+>>>>>>> e7e8a3e5a80ff11f1b1ae9ea0b35b0b0394d5f76
   </a>
  </div>
 </div>

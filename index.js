@@ -75,11 +75,11 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
 
     // // Process ne question form 
     // // #Under development
-    // app.post('/home.html', function (req, res) {
-    //     if (!req.body) return res.send("Error 404");
-    //     console.log(req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish + " " + req.body.ques);
+    app.post('/publishPost', function (req, res) {
+        if (!req.body) return res.send("Error 404");
+        console.log(req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish + " " + req.body.ques);
         
-    // });
+    });
 
     // Render front page
     app.get('/', function(req, res){
