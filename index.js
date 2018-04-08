@@ -40,7 +40,8 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
             email = info.email;
             password = info.password;
             var questions = [];
-            db.collection("questions").find().toArray(function(err, result){
+            var mySortByDate = {"dateOfPublish" : -1};
+            db.collection("questions").find().sort(mySortByDate).toArray(function(err, result){
                 for (var i = 0 ; i < result.length ; i++)
                     questions.push(result[i]);
             });

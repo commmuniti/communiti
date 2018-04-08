@@ -23,6 +23,9 @@ $(document).ready(function(){
         });
             alert("Question Sucessfully Submitted");
     });
+    $(".btn-group > .btn").click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+    });
     $('.addComment').on('click', function (event) {
         $(this).next('.myCommentDiv').toggle('swing');
     });
