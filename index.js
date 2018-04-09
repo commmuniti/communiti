@@ -81,13 +81,20 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
         });
     });
 
-    // // Process ne question form 
+    // // Process the question form
     // // #Under development
     app.post('/publishPost', function (req, res) {
-        if (!req.body) return res.send("Error 404");
-        console.log(req.body);
-        //console.log(req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish + " " + req.body.ques + " " + req.body.tags);
-        
+        if (!req.body) return res.redirect('error.html');
+        console.log(req.body.ques + " " + req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish);
+        var query={
+            "ques":req.body.ques, 
+            "upvote": req.body.upvotes, 
+            "downvote": req.body.downvotes, 
+            "user": req.body.name,
+            "tags" : req.body.tags,
+            "dateOfPublish" : req.body.dateOfPublish,
+        };
+        db.collection("questions").insertOne(query);
     });
 
     // Render front page
