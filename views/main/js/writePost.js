@@ -13,8 +13,8 @@ function btnClick(foo, bar){
     $.post("/publishComment",
         {
             content: cont,
-            ques_id: foo,
-            name: document.getElementById("name").innerHTML,
+            ques_id: x,
+            user: $("#name").text(),
             likes: 0,
             dislikes: 0,
             dateOfPublish: output

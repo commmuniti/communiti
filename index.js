@@ -106,12 +106,13 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
     app.post('/publishComment', function (req, res) {
         if (!req.body) return res.redirect('error.html');
         console.log(req.body.ques_id + " " + req.body.content + " " + req.body.likes + " " + req.body.dislikes + " " + req.body.user);
-        db.collection("questions").update({"_id": req.body.ques_id},{
-            "$push": {
+        db.collection("questions").update({"ques": req.body.ques_id},{
+            $push: {
                 "comments": {
                     "content": req.body.content,
                     "likes": req.body.likes, 
                     "dislikes": req.body.dislikes, 
+                    "user": req.body.user,
                     "dateOfPublish" : req.body.dateOfPublish
                 }
             }
