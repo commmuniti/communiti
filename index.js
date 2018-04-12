@@ -6,6 +6,9 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       router = express.Router();
 
+var setCookie = require('set-cookie');
+
+
 
 // For rendering templates
 app.engine('html', engines.nunjucks);
@@ -40,12 +43,15 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
             email = info.email;
             password = info.password;
             var questions = [];
-            db.collection("questions").find().toArray(function(err, result){
+            var mySortByDate = {"dateOfPublish" : -1};
+            db.collection("questions").find().sort(mySortByDate).toArray(function(err, result){
                 for (var i = 0 ; i < result.length ; i++)
                     questions.push(result[i]);
             });
             if(req.body.email == email && req.body.password == password){
-                // Here is the problem: we don't want to render, we want to redirect it to home.html with tghe following data
+                // Way to set-cookies
+                // res.cookie("username", info.name, { maxAge: 900000, httpOnly: true });
+                // res.cookie("hometown", info.hometown, { maxAge: 900000, httpOnly: true });
                 res.render('home.html',
                     {
                         "name" : info.name, 
@@ -80,13 +86,37 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
         });
     });
 
-    // // Process ne question form 
+    // // Process the question form
     // // #Under development
     app.post('/publishPost', function (req, res) {
-        if (!req.body) return res.send("Error 404");
-        console.log(req.body);
-        //console.log(req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish + " " + req.body.ques + " " + req.body.tags);
-        
+        if (!req.body) return res.redirect('error.html');
+        console.log(req.body.ques + " " + req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish);
+        var query={
+            "ques":req.body.ques, 
+            "upvote": req.body.upvotes, 
+            "downvote": req.body.downvotes, 
+            "user": req.body.name,
+            "tags" : req.body.tags,
+            "dateOfPublish" : req.body.dateOfPublish,
+            "comments": []
+        };
+        db.collection("questions").insertOne(query);
+    });
+
+    app.post('/publishComment', function (req, res) {
+        if (!req.body) return res.redirect('error.html');
+        console.log(req.body.ques_id + " " + req.body.content + " " + req.body.likes + " " + req.body.dislikes + " " + req.body.user);
+        db.collection("questions").update({"ques": req.body.ques_id},{
+            $push: {
+                "comments": {
+                    "content": req.body.content,
+                    "likes": req.body.likes, 
+                    "dislikes": req.body.dislikes, 
+                    "user": req.body.user,
+                    "dateOfPublish" : req.body.dateOfPublish
+                }
+            }
+        });
     });
 
     // Render front page

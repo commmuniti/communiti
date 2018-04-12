@@ -146,39 +146,42 @@
     
     <!-- Middle Column -->
     <div class="w3-col m7">
-    
-      <div class="w3-row-padding">
-        <div class="w3-col m12">
-          <div class="w3-card w3-round w3-white">
-            <div class="w3-container w3-padding">
-              <h6 class="w3-opacity">Ask Your Question Here!</h6>
-              <textarea placeholder="What's on your mind?" id="ques" style="width: 100%; resize: none;" class="form-control w3-border w3-padding" required autofocus></textarea>
-              <h6 class="w3-opacity">Add Tags: </h6>
-              <select id="tags" style="width: 100%; resize: none;" multiple="multiple">
-                <option name="dummy">dummy</option>
-              </select>
-              <br>
-              <button type="button" id="sendQues" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button> 
+
+        <div class="w3-row-padding">
+            <div class="w3-col m12">
+              <div class="w3-card w3-round w3-white">
+                <div class="w3-container w3-padding">
+                    <span class = "btn-group" style="margin-bottom: 0px; margin-top: 0px; float: left;">
+                        <a href="#" id="recent" class="btn btn-md btn-default  active" >Recent</a>
+                        <a href="#" id="popular" class="btn btn-md btn-default">Popular</a> 
+                    </span>    
+                    <button class="addQues" class="btn btn-md btn-default" style="float: right"><i class="glyphicon glyphicon-question-sign"></i> Wanna ask some question</button>
+                    <div class = "fques" style="margin-top: 50px; display: none;">
+                        <div>
+                            <textarea style="resize: none; margin-bottom: 10px;" id = "ques" placeholder="Enter your question" class="form-control"></textarea>
+                            <input id = "tags" type="text"  style="margin-bottom: 10px;" class="form-control" placeholder="Add tags">
+                            <button id="sendQues" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </div>
+              </div>
             </div>
-          </div>
         </div>
-      </div>
-      
 
       {% for ques in questions %}
-      <div id="myForm" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <img src="images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
         <span class="w3-right w3-opacity">{{ques.dateOfPublish}}</span>
-        <h4>{{ques.user}}</h4><br>
+        <h4>{{ ques.user }}</h4><br>
         <hr class="w3-clear">
         <p>{{ ques.ques }}</p>
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Upvote {{ques.upvote}}</button> 
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>  Downvote {{ques.downvote}} </button> 
+        <button type="button" id="upvote" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Upvote {{ques.upvote}}</button> 
+        <button type="button" id="downvote" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>  Downvote {{ques.downvote}} </button> 
         <button type="button" class="addComment w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
         <div class="myCommentDiv" style="display: none;">
           <div class="comment_form">
-              <input type="text" class="form-control" style="width: 100%; margin-bottom: 10px;" placeholder="Add a comment.....">
-              <button id="post" class="form-control btn btn-primary btn-md" style="width: 10%; margin-bottom: 10px;">Post</button>  
+              <input id = "{{ques.ques}}" type="text" class="form-control curr-comment" style="width: 100%; margin-bottom: 10px;" placeholder="Add a comment.....">
+              <button id = "{{ques._id}}" qcom = "{{ques.ques}}" onclick="btnClick(this.id)" class="postComment form-control btn btn-primary btn-md" style="width: 10%; margin-bottom: 10px;">Post</button>  
           </div>
           <div class="container-fluid">
             {% for comment in ques.comments %}
@@ -186,8 +189,8 @@
                 <b>{{comment.user}}:</b> {{comment.content}} 
               </p> 
               <div class= "container-fluid" style="float: right;">  
-                <a href="#"><i class="fa fa-thumbs-up"></i><span>{{comment.likes}}0</span></a> &nbsp;
-                <a href="#"><i class="fa fa-thumbs-down"></i><span>{{comment.dislikes}}0</span></a>
+                <a href="#"><i class="fa fa-thumbs-up"></i><span>{{comment.likes}}</span></a> &nbsp;
+                <a href="#"><i class="fa fa-thumbs-down"></i><span>{{comment.dislikes}}</span></a>
               </div><br>
             {% endfor %}
           </div>    
