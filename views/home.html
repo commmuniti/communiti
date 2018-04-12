@@ -175,8 +175,8 @@
         <button type="button" class="addComment w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
         <div class="myCommentDiv" style="display: none;">
           <div class="comment_form">
-              <input type="text" class="form-control" style="width: 100%; margin-bottom: 10px;" placeholder="Add a comment.....">
-              <button id="post" class="form-control btn btn-primary btn-md" style="width: 10%; margin-bottom: 10px;">Post</button>  
+              <input id = "{{ques.ques}}" type="text" class="form-control curr-comment" style="width: 100%; margin-bottom: 10px;" placeholder="Add a comment.....">
+              <button id = "{{ques._id}}" qcom = "{{ques.ques}}" onclick="btnClick(this.id)" class="postComment form-control btn btn-primary btn-md" style="width: 10%; margin-bottom: 10px;">Post</button>  
           </div>
           <div class="container-fluid">
             {% for comment in ques.comments %}
