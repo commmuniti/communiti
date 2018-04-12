@@ -6,9 +6,6 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script> -->
-  <!-- <script type="text/javascript" src="/vendor/js/tokenizer.js"></script>
-  <link rel="stylesheet" type="text/css" href="/vendor/jsinput_style.css" /> -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
   
@@ -159,8 +156,10 @@
                     <div class = "fques" style="margin-top: 50px; display: none;">
                         <div>
                             <textarea style="resize: none; margin-bottom: 10px;" id = "ques" placeholder="Enter your question" class="form-control"></textarea>
-                            <input id = "tags" type="text"  style="margin-bottom: 10px;" class="form-control" placeholder="Add tags">
-                            <button id="sendQues" class="btn btn-primary">Submit</button>
+                            <select id="tags" style="width: 100%; resize: none;" multiple="multiple">
+                              <option name="dummy">dummy</option>
+                            </select>
+                            <button id="sendQues" class="btn btn-primary" style="margin-top:10px;">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -282,9 +281,6 @@ function openNav() {
     }
 }
 </script>
-
-
-
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.full.min.js"></script>
@@ -294,23 +290,6 @@ function openNav() {
     tags: true,
     tokenSeparators: [',', ' '],
   });
-
-//   $('select').select2({
-//   createTag: (params) => {
-//     console.log(params);
-//     var term = $.trim(params.term);
-
-//     if (term === '') {
-//       return null;
-//     }
-
-//     return {
-//       id: term,
-//       text: term,
-//       newTag: true // add additional parameters
-//     }
-//   }
-// });
 
 </script>
 
