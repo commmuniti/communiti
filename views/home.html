@@ -6,7 +6,12 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script> -->
+  <!-- <script type="text/javascript" src="/vendor/js/tokenizer.js"></script>
+  <link rel="stylesheet" type="text/css" href="/vendor/jsinput_style.css" /> -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+  
   <title>Communiti-The Social Network</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -21,7 +26,7 @@
       padding-left: 5px;
     }
   </style>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
   <script src="main/js/writePost.js"></script>
 </head>
 <body class="w3-theme-l5">
@@ -149,7 +154,9 @@
               <h6 class="w3-opacity">Ask Your Question Here!</h6>
               <textarea placeholder="What's on your mind?" id="ques" style="width: 100%; resize: none;" class="form-control w3-border w3-padding" required autofocus></textarea>
               <h6 class="w3-opacity">Add Tags: </h6>
-              <input type="text" id="tags" style="width: 100%; resize: none;" class="form-control w3-border w3-padding">
+              <select id="tags" style="width: 100%; resize: none;" multiple="multiple">
+                <option name="dummy">dummy</option>
+              </select>
               <br>
               <button type="button" id="sendQues" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button> 
             </div>
@@ -273,5 +280,35 @@ function openNav() {
 }
 </script>
 
+
+
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.full.min.js"></script>
+
+<script type="text/javascript">
+	$("#tags").select2({
+    tags: true,
+    tokenSeparators: [',', ' '],
+  });
+
+//   $('select').select2({
+//   createTag: (params) => {
+//     console.log(params);
+//     var term = $.trim(params.term);
+
+//     if (term === '') {
+//       return null;
+//     }
+
+//     return {
+//       id: term,
+//       text: term,
+//       newTag: true // add additional parameters
+//     }
+//   }
+// });
+
+</script>
+
 </html> 
