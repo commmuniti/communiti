@@ -93,11 +93,12 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
         console.log(req.body.ques + " " + req.body.name + " " + req.body.upvotes + " " + req.body.downvotes + " " + req.body.dateOfPublish);
         var query={
             "ques":req.body.ques, 
-            "upvote": req.body.upvotes, 
-            "downvote": req.body.downvotes, 
+            "upvote": parseInt(req.body.upvotes), 
+            "downvote": parseInt(req.body.downvotes), 
             "user": req.body.name,
             "tags" : req.body.tags,
             "dateOfPublish" : req.body.dateOfPublish,
+            "numOfComments": 0,
             "comments": []
         };
         db.collection("questions").insertOne(query);
@@ -115,6 +116,31 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
                     "user": req.body.user,
                     "dateOfPublish" : req.body.dateOfPublish
                 }
+            }
+        });
+        db.collection("questions").update({"ques": req.body.ques_id},{
+            $inc: {
+                "numOfComments":1
+            }
+        });
+    });
+
+    app.post('/upvoteQuestion', function (req, res) {
+        if (!req.body) return res.redirect('error.html');
+        console.log(req.body.ques_id);
+        db.collection("questions").update({"ques": req.body.ques_id},{
+            $inc: {
+                "upvote": 1
+            }
+        });
+    });
+
+    app.post('/downvoteQuestion', function (req, res) {
+        if (!req.body) return res.redirect('error.html');
+        console.log(req.body.ques_id);
+        db.collection("questions").update({"ques": req.body.ques_id},{
+            $inc: {
+                "downvote": 1
             }
         });
     });

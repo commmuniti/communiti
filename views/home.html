@@ -141,7 +141,6 @@
     
     <!-- Middle Column -->
     <div class="w3-col m7">
-
         <div class="w3-row-padding">
             <div class="w3-col m12">
               <div class="w3-card w3-round w3-white">
@@ -154,9 +153,7 @@
                     <div class = "fques" style="margin-top: 50px; display: none;">
                         <div>
                             <textarea style="resize: none; margin-bottom: 10px;" id = "ques" placeholder="Enter your question" class="form-control"></textarea>
-                            <select id="tags" style="width: 100%; resize: none;" multiple="multiple">
-                              <option name="dummy">dummy</option>
-                            </select>
+                            <input type="text" id="tags" class="form-control" placeholder="Add tags...">
                             <button id="sendQues" class="btn btn-primary" style="margin-top:10px;">Submit</button>
                         </div>
                     </div>
@@ -172,10 +169,9 @@
         <h4>{{ ques.user }}</h4>
           <hr>
         <p>{{ ques.ques }}</p>
-        <button type="button" id="upvote" class="btn btn-default w3-button"><i class="fa fa-thumbs-up"></i> {{ques.upvote}}</button> 
-        <button type="button" id="downvote" class="btn btn-default w3-button"><i class="fa fa-thumbs-down"></i> {{ques.downvote}} </button> 
-        <button type="button" class="addComment btn btn-default w3-button"><i class="fa fa-comment"></i></button> 
-    
+        <button type="button" id="{{ques._id}}" ucom = "{{ques.user}}" qcom = "{{ques.ques}}" style="margin-bottom: 7px;" class="btn btn-default btn-sm" onclick="upvote(this.id)"><i class="fa fa-thumbs-up"></i> {{ques.upvote}}</button> 
+        <button type="button" id="{{ques._id}}" ucom = "{{ques.user}}" qcom = "{{ques.ques}}" style="margin-bottom: 7px;" class="btn btn-default btn-sm" onclick="downvote(this.id)"><i class="fa fa-thumbs-down"></i> {{ques.downvote}} </button> 
+        <button type="button" class="addComment btn btn-default btn-sm"style="margin-bottom: 7px;" ><i class="fa fa-comment"></i> {{ques.numOfComments}}</button> 
         <div class="myCommentDiv" style="display: none;">
           <div class="comment_form">
               <input id = "{{ques.ques}}" type="text" class="form-control curr-comment" style="width: 100%; margin-bottom: 10px;" placeholder="Add a comment.....">
@@ -281,7 +277,7 @@ function openNav() {
 </script>
 </body>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.full.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.full.min.js"></script>
 
 <script type="text/javascript">
 	$("#tags").select2({
@@ -289,6 +285,6 @@ function openNav() {
     tokenSeparators: [',', ' '],
   });
 
-</script>
+</script> -->
 
 </html> 

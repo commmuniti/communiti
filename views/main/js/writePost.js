@@ -6,8 +6,7 @@ var output = d.getFullYear() + '/' +
     (month<10 ? '0' : '') + month + '/' +
     (day<10 ? '0' : '') + day;
 
-function btnClick(foo, bar){
-    alert(foo);
+function btnClick(foo){
     var x = document.getElementById(foo).getAttribute("qcom");
     var cont = document.getElementById(x).value;
     $.post("/publishComment",
@@ -20,6 +19,34 @@ function btnClick(foo, bar){
             dateOfPublish: output
         });
     alert("Comment published! \n Refresh the page!");
+    document.getElementById(x).value = "";
+    location.reload();
+}
+function upvote(foo){
+    var x = document.getElementById(foo).getAttribute("qcom");
+    var user = document.getElementById(foo).getAttribute("ucom");
+    if(user === $("#name").text()){
+        alert("You can't upvote or downvote your own question");
+        return;
+    }
+    $.post("/upvoteQuestion",
+        {
+            ques_id: x
+        });
+    location.reload();
+}
+
+function downvote(foo){
+    var x = document.getElementById(foo).getAttribute("qcom");
+    var user = document.getElementById(foo).getAttribute("ucom");
+    if(user === $("#name").text()){
+        alert("You can't upvote or downvote your own question");
+        return;
+    }
+    $.post("/downvoteQuestion",
+        {
+            ques_id: x
+        });
     location.reload();
 }
 
